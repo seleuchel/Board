@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 모든 열의 너비를 동일하게 설정 */
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    width: 12.5%; /* 8개의 열이므로 100%를 8로 나눠서 균등 배치 */
+    white-space: nowrap; /* 긴 텍스트가 줄 바뀌지 않도록 설정 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 너무 길면 ...으로 표시 */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td[contenteditable="true"] {
+    background-color: #fffaf0; /* 편집 가능한 셀의 배경색 */
+    cursor: text;
+}
