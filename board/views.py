@@ -3,6 +3,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post
 import json
+
+# csv save 
+import csv
+from django.http import HttpResponse
+from .models import Post
+
 from datetime import datetime
 
 def index(request):
@@ -50,3 +56,25 @@ def post_update(request):
             return JsonResponse({"success": True})
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=400)
+
+
+
+# csv save 
+def download_csv(request):
+    # HTTP 응답 객체 생성 (CSV 파일 형식)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="data.csv"'
+
+    # CSV 작성자 생성
+    writer = csv.writer(response)
+    
+    # CSV 헤더 작성
+    writer.writerow(['id', 'vul_ok', 'srv_name', 'req_date', 'sendmail_date', \
+    'adm_buseo', 'adm_name', 'srv_loc', 'bigo', 'created_date',]) 
+
+    # 데이터베이스에서 데이터 가져와서 CSV에 추가
+    for obj in Post.objects.all():
+        writer.writerow([obj.id, obj.vul_ok, obj.srv_name, obj.req_date, obj.sendmail_date, \
+         obj.adm_buseo, obj.adm_name, obj.srv_loc, obj.bigo, obj.created_date,])
+
+    return response
