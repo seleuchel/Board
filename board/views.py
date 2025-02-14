@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Post
 import json
 
-# csv save 
+# csv save /
 import csv
 from django.http import HttpResponse
 from .models import Post
